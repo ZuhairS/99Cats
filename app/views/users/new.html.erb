@@ -1,0 +1,21 @@
+<h1>Creating new user</h1>
+<h4>Please enter the username and password you want to use:</h4>
+
+<%= render "shared/errors" %>
+
+<form action="<%= users_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="username">Username</label>
+  <input type="text" name="user[username]" id="username">
+
+  <label for="password">Password</label>
+  <input type="password" name="user[password]" id="password">
+
+  <input type="submit" value="Create User">
+
+</form>
+
+<br><br>
+
+<%= link_to "Home Page", cats_url%>

@@ -1,0 +1,20 @@
+<h1>Login</h1>
+<h4>Please enter your username and password:</h4>
+
+<%= render "shared/errors" %>
+
+<form action="<%= session_url %>" method="post">
+
+  <label for="username">Username</label>
+  <input type="text" name="user[username]" id="username">
+
+  <label for="password">Password</label>
+  <input type="password" name="user[password]" id="password">
+
+  <input type="submit" value="Login User">
+
+</form>
+
+<br><br>
+
+<%= link_to "Home Page", cats_url %>
