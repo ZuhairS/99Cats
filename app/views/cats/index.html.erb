@@ -1,14 +1,9 @@
-<h1>99Cats</h1>
-  <h2>Choose the cat you want to rent!</h2>
+<h1>Cats upon cats!</h1>
 
-  <ul>
-    <% @cats.each do |cat| %>
-      <li><%= link_to cat.name, cat_url(cat) %></li>
-    <% end %>
-  </ul>
+<ul>
+  <% @cats.each do |cat| %>
+    <li><a href="<%= cat_url(cat) %>"><%= cat.name %></a></li>
+  <% end %>
+</ul>
 
-
-
-<%= link_to "Add New Cat", new_cat_url %>
-
-<%= link_to "Request a Cat", new_cat_rental_request_url %>
+<a href="<%= new_cat_url %>">Create cat</a>

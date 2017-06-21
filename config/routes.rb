@@ -1,9 +1,9 @@
-Rails.application.routes.draw do
+NinetyNineCatsDay1::Application.routes.draw do
+  resources :cats, except: :destroy
+  resources :cat_rental_requests, only: [:create, :new] do
+    post "approve", on: :member
+    post "deny", on: :member
+  end
 
-  resources :cats
-  resources :cat_rental_requests
-
-  patch 'cat_rental_requests/:id' => 'cat_rental_requests#approve'
-  patch 'cat_rental_requests/:id' => 'cat_rental_requests#deny'
-
+  root to: redirect("/cats")
 end

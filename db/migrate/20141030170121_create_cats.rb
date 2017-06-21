@@ -1,4 +1,4 @@
-class CreateCats < ActiveRecord::Migration[5.0]
+class CreateCats < ActiveRecord::Migration
   def change
     create_table :cats do |t|
       t.date :birth_date, null: false

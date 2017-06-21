@@ -1,24 +1,37 @@
-<h1>Request a Cat</h1>
-<form action="<%= cat_rental_requests_url%>" method="post">
+<h1>Create Rental Request</h1>
 
-  <input type="hidden" name="cat_rental_request[status]" value="PENDING">
+<%= render "shared/errors" %>
 
-  <label for="cat_select">Select the cat you want to rent: </label>
-  <select name="cat_rental_request[cat_id]", id="cat_select">
-    <option disabled selected>Pick a cat</option>
-    <% @cats.each do |cat| %>
-      <option value="<%= cat.id %>"> <%= cat.name %></option>
+<form action="<%= cat_rental_requests_url %>" method="post">
+  <label for="cat_rental_request_cat_id">Cat</label>
+  <select name="cat_rental_request[cat_id]"
+          id="cat_rental_request_cat_id">
+    <option></option>
+    <% Cat.all.each do |cat| %>
+      <% selected = @rental_request.cat_id == cat.id %>
+      <option <%= selected ? "selected" : "" %>
+              value="<%= cat.id %>">
+        <%= cat.name %>
+      </option>
     <% end %>
-  </select><br><br>
+  </select>
+  <br>
 
-  <label for="startdate">Start Date</label>
-  <input type="date" name="cat_rental_request[start_date]" id="startdate" value="<%= Time.now.to_date %>">
+  <label for="cat_rental_request_start_date">Start Date</label>
+  <input
+    type="date"
+    name="cat_rental_request[start_date]"
+    value="<%= @rental_request.start_date %>"
+    id="cat_rental_request_start_date">
+  <br>
 
-  <label for="enddate">End Date</label>
-  <input type="date" name="cat_rental_request[end_date]" id="enddate" value="<%= Time.now.to_date %>">
+  <label for="cat_rental_request_end_date">End Date</label>
+  <input
+    type="date"
+    name="cat_rental_request[end_date]"
+    value="<%= @rental_request.end_date %>"
+    id="cat_rental_request_end_date">
+  <br>
 
-  <br><br>
-
-  <input type="submit" value="Add Request">
-
+  <input type="submit">
 </form>

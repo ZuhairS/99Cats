@@ -1,19 +1,28 @@
-class Cat < ApplicationRecord
-  VALID_COLORS = %w(Black White Brown Grey Orange Silver Blue Red Green).freeze
-  validates :birth_date, :name, presence: true
-  validates :sex, inclusion: { in: %w(M F), message: 'Invalid Sex' }
-  validates :color, inclusion: { in: VALID_COLORS, message: 'Invalid Color' }
+require 'action_view'
 
-  has_many :cat_rental_requests,
-    primary_key: :id,
-    foreign_key: :cat_id,
-    class_name: 'CatRentalRequest'
+class Cat < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
+
+  CAT_COLORS = %w(black white orange brown)
+
+  has_many(
+    :rental_requests,
+    class_name: "CatRentalRequest",
+    dependent: :destroy
+  )
+
+  validates(
+    :birth_date,
+    :color,
+    :name,
+    :sex,
+    presence: true
+  )
+
+  validates :color, inclusion: CAT_COLORS
+  validates :sex, inclusion: %w(M F)
 
   def age
-    Time.now.year - self.birth_date.year
-  end
-
-  def self.colors
-    VALID_COLORS
+    time_ago_in_words(birth_date)
   end
 end
