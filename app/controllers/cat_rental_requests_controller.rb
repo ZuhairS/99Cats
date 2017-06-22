@@ -29,6 +29,10 @@ class CatRentalRequestsController < ApplicationController
 
   private
 
+  def require_owner
+    redirect_to cats_url if current_user.cats.find_by_id(params[:id]).nil?
+  end
+
   def current_cat_rental_request
     @rental_request ||=
       CatRentalRequest.includes(:cat).find(params[:id])

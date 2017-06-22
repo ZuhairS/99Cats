@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :require_logout, except: [:destroy]
+  before_action :require_logout
 
   def new
     @user = User.new
