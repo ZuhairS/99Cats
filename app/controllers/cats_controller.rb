@@ -1,6 +1,7 @@
 class CatsController < ApplicationController
 
-  before_action :require_owner
+  before_action :require_login, except: [:show, :index]
+  before_action :require_owner, only: [:edit, :update]
 
   def index
     @cats = Cat.all
@@ -19,8 +20,8 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    @cat.owner = current_user
     if @cat.save
-      @cat.owner = current_user
       redirect_to cat_url(@cat)
     else
       flash.now[:errors] = @cat.errors.full_messages
@@ -44,6 +45,10 @@ class CatsController < ApplicationController
   end
 
   private
+
+  def require_owner
+    redirect_to cats_url if current_user.cats.find_by_id(params[:id]).nil?
+  end
 
   def cat_params
     params.require(:cat)

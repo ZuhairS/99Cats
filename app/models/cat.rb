@@ -21,12 +21,12 @@ class Cat < ActiveRecord::Base
     :color,
     :name,
     :sex,
+    :owner,
     presence: true
   )
 
   validates :color, inclusion: CAT_COLORS
   validates :sex, inclusion: %w(M F)
-  validates :owner, presense: true
 
   def age
     time_ago_in_words(birth_date)

@@ -10,11 +10,17 @@ class CatRentalRequest < ActiveRecord::Base
     :end_date,
     :start_date,
     :status,
+    :requester,
     presence: true
   )
   validates :status, inclusion: STATUS_STATES
   validate :start_must_come_before_end
   validate :does_not_overlap_approved_request
+
+  belongs_to :requester,
+    class_name: 'User',
+    primary_key: :id,
+    foreign_key: :user_id
 
   def approve!
     raise "not pending" unless self.status == "PENDING"

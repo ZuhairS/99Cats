@@ -17,17 +17,11 @@ class ApplicationController < ActionController::Base
   end
 
   def require_logout
-    return if params[:actions] == :destroy
     redirect_to cats_url if current_user
   end
 
   def require_login
     redirect_to new_session_url unless current_user
-  end
-
-  def require_owner
-    unless owner.cats.include?(self)
-    redirect_to
   end
 
 end
