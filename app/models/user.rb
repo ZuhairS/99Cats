@@ -6,6 +6,11 @@ class User < ActiveRecord::Base
 
   attr_reader :password
 
+  has_many :cats,
+    class_name: 'Cat',
+    primary_key: :id,
+    foreign_key: :user_id
+
   def self.find_by_credentials(username, password)
     user = User.find_by_username(username)
     return nil if user.nil?

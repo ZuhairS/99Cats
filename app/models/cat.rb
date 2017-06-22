@@ -11,6 +11,11 @@ class Cat < ActiveRecord::Base
     dependent: :destroy
   )
 
+  belongs_to :owner,
+    class_name: 'User',
+    primary_key: :id,
+    foreign_key: :user_id
+
   validates(
     :birth_date,
     :color,
@@ -21,6 +26,7 @@ class Cat < ActiveRecord::Base
 
   validates :color, inclusion: CAT_COLORS
   validates :sex, inclusion: %w(M F)
+  validates :owner, presense: true
 
   def age
     time_ago_in_words(birth_date)
